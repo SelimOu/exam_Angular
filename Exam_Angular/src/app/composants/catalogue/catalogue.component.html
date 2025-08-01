@@ -17,6 +17,7 @@
             </select>
           </div>
 
+
           <div>
             <label class="block text-sm font-medium text-gray-700 mb-2">Prix maximum</label>
             <input type="range" formControlName="maxPrice" [min]="0" [max]="1000" [step]="50" class="w-full">
@@ -39,16 +40,25 @@
       <p class="text-gray-600">{{ filteredArticles.length }} produit(s) trouvé(s)</p>
     </div>
 
+
     <div class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
       @for (article of filteredArticles; track article.id) {
       <app-articles [article]="article"></app-articles>
       }
     </div>
 
-    @if (filteredArticles.length === 0) {
+    @if (loading) {
+    <div class="flex items-center justify-center h-40 w-40 mx-auto">
+      <img src="loading-7528_256.gif" alt="loading">
+    </div>
+    }
+
+    @else if (filteredArticles.length === 0) {
     <div class="text-center py-12">
       <p class="text-gray-500 text-lg">Aucun produit ne correspond à vos critères de recherche.</p>
     </div>
     }
+
+
   </div>
 </div>

@@ -29,13 +29,15 @@ export class CatalogueComponent implements OnInit {
       onlyPromotions: [false]
     });
   }
-
+  loading: boolean = true;
   ngOnInit(): void {
     this.articleService.getAll().subscribe(articles => {
       this.articles = articles;
       this.categories = [...new Set(articles.map(article => article.category))];
       this.filteredArticles = articles;
+      this.loading = false;
     });
+
 
     this.filterForm.valueChanges.subscribe(filters => {
       this.filteredArticles = this.applyFilters(this.articles, filters);
