@@ -4,8 +4,7 @@ import { ReactiveFormsModule, FormBuilder, FormGroup } from '@angular/forms';
 import { ArticleService } from '../../services/article.service';
 import { Article } from '../../models/article.interface';
 import { ArticlesComponent } from '../articles/articles.component';
-import { Observable, BehaviorSubject } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-catalogue',
