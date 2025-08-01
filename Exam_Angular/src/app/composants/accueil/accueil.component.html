@@ -1,11 +1,91 @@
 <div class="min-h-screen bg-gray-50">
+  <!-- Section Hero -->
   <section class="bg-black text-white py-16">
     <div class="container mx-auto px-4 text-center">
       <h1 class="text-4xl font-bold mb-4">ClimateShop</h1>
       <p class="text-lg mb-6">Équipements de climatisation</p>
-      <a routerLink="/catalogue" class="bg-white text-black px-6 py-2 rounded font-semibold">
+      <a routerLink="/catalogue"
+        class="bg-white text-black px-6 py-2 rounded font-semibold hover:bg-gray-200 transition">
         Voir les produits
       </a>
     </div>
   </section>
+
+  <section class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="max-w-4xl mx-auto text-center">
+        <h2 class="text-3xl font-bold text-gray-800 mb-8">À propos de ClimateShop</h2>
+        <div class=" items-center">
+          <div class="text-left">
+            <p class="text-gray-600 mb-4 leading-relaxed">
+              <strong>ClimateShop</strong> est votre partenaire de confiance pour tous vos
+              besoins en climatisation et ventilation.
+              Nous proposons une gamme complète d'équipements de haute qualité pour rafraîchir votre intérieur.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16 bg-gray-50">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-bold text-center text-gray-800 mb-12">Produits en Promotion</h2>
+
+      @if (loading) {
+      <div class="flex items-center justify-center h-40 w-40 mx-auto">
+        <img src="loading-7528_256.gif" alt="loading">
+      </div>
+      }
+
+      @if (!loading && articlesEnPromo.length > 0) {
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        @for (article of articlesEnPromo; track article.id) {
+        <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition">
+          <div class="relative">
+            <img [src]="article.image" [alt]="article.title" class="w-full h-48 object-cover">
+            <div class="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 rounded-full text-sm font-bold">
+              -{{ getPourcentagePromo(article.discountPercent) }}%
+            </div>
+          </div>
+          <div class="p-6">
+            <h3 class="text-xl font-bold text-gray-800 mb-2">{{ article.title }}</h3>
+            <p class="text-gray-600 mb-4 text-sm">{{ article.description }}</p>
+            <div class="flex items-center justify-between">
+              <div class="flex flex-col">
+                <span class="text-lg font-bold text-green-600">{{ getPrixPromo(article) |
+                  currency:'EUR':'symbol':'1.2-2' }}</span>
+                <span class="text-sm text-gray-500 line-through">{{ article.fullPrice | currency:'EUR':'symbol':'1.2-2'
+                  }}</span>
+              </div>
+              <span class="bg-red-100 text-red-800 px-2 py-1 rounded text-xs font-semibold">
+                Économisez {{ (article.fullPrice - getPrixPromo(article)) | currency:'EUR':'symbol':'1.2-2' }}
+              </span>
+            </div>
+            <div class="mt-4">
+              <a routerLink="/catalogue"
+                class="w-full bg-orange-500 text-white px-4 py-2 rounded font-semibold hover:bg-blue-700 transition text-center block">
+                Voir tous les produits
+              </a>
+            </div>
+          </div>
+        </div>
+        }
+      </div>
+      }
+
+      @if (!loading && articlesEnPromo.length === 0) {
+      <div class="text-center py-8">
+        <p class="text-gray-600">Aucune promotion en cours pour le moment.</p>
+        <a routerLink="/catalogue"
+          class="inline-block mt-4 bg-blue-600 text-white px-6 py-2 rounded font-semibold hover:bg-blue-700 transition">
+          Voir tous nos produits
+        </a>
+      </div>
+      }
+    </div>
+  </section>
+
+
 </div>
