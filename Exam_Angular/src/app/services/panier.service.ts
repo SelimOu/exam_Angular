@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { Article, CartItem } from '../models/article.interface';
+import { Article, PanierItem } from '../models/article.interface';
 
 @Injectable({
     providedIn: 'root'
 })
-export class CartService {
-    private panierItems: CartItem[] = [];
-    private panierSubject = new BehaviorSubject<CartItem[]>([]);
+export class PanierService {
+    private panierItems: PanierItem[] = [];
+    private panierSubject = new BehaviorSubject<PanierItem[]>([]);
     public panier$ = this.panierSubject.asObservable();
 
     constructor() { }

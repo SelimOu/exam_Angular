@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Article } from '../../models/article.interface';
-import { CartService } from '../../services/panier.service';
+import { PanierService } from '../../services/panier.service';
 
 @Component({
   selector: 'app-articles',
@@ -13,7 +13,7 @@ import { CartService } from '../../services/panier.service';
 export class ArticlesComponent {
   @Input() article!: Article;
 
-  constructor(private cartService: CartService) { }
+  constructor(private panierService: PanierService) { }
 
   getDiscountedPrice(): number {
     if (!this.article) return 0;
@@ -22,7 +22,7 @@ export class ArticlesComponent {
 
   addToPanier(): void {
     if (this.article && this.article.id) {
-      this.cartService.addToPanier(this.article);
+      this.panierService.addToPanier(this.article);
     } else {
       console.error('Article data is missing or invalid');
     }

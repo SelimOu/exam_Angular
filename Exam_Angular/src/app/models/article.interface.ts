@@ -15,7 +15,7 @@ export interface Article {
     features: Feature[];
 }
 
-export interface CartItem {
+export interface PanierItem {
     article: Article;
     quantity: number;
 }

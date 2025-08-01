@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { CartService } from '../../services/panier.service';
-import { CartItem } from '../../models/article.interface';
+import { PanierService } from '../../services/panier.service';
+import { PanierItem } from '../../models/article.interface';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -13,32 +13,32 @@ import { Observable } from 'rxjs';
   styleUrl: './panier.component.css'
 })
 export class PanierComponent implements OnInit {
-  panierItems$: Observable<CartItem[]>;
+  panierItems$: Observable<PanierItem[]>;
 
-  constructor(private cartService: CartService) {
-    this.panierItems$ = this.cartService.panier$;
+  constructor(private panierService: PanierService) {
+    this.panierItems$ = this.panierService.panier$;
   }
 
   ngOnInit(): void { }
 
   updateQuantity(articleId: number, quantity: number): void {
-    this.cartService.updateQuantity(articleId, quantity);
+    this.panierService.updateQuantity(articleId, quantity);
   }
 
   removeFromPanier(articleId: number): void {
-    this.cartService.removeFromPanier(articleId);
+    this.panierService.removeFromPanier(articleId);
   }
 
   clearPanier(): void {
-    this.cartService.clearPanier();
+    this.panierService.clearPanier();
   }
 
   getPanierTotal(): number {
-    return this.cartService.getPanierTotal();
+    return this.panierService.getPanierTotal();
   }
 
   getTotalItems(): number {
-    return this.cartService.getPanierItemsCount();
+    return this.panierService.getPanierItemsCount();
   }
 
   getDiscountedPrice(article: any): number {
@@ -48,7 +48,7 @@ export class PanierComponent implements OnInit {
     return article.fullPrice * (1 - (article.discountPercent || 0));
   }
 
-  getItemTotal(item: CartItem): number {
+  getItemTotal(item: PanierItem): number {
     if (!item || !item.article || typeof item.article.fullPrice !== 'number') {
       return 0;
     }
